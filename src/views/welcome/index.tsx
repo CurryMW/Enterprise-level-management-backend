@@ -2,6 +2,9 @@ import React from "react";
 import { Button } from "antd";
 import storage from "../../utils/storage";
 
+const url = import.meta.env.VITE_BASE_URL;
+console.log("url", url);
+
 interface Props {}
 const WelCome: React.FC<Props> = () => {
   const handleStorage = (value: string) => {
