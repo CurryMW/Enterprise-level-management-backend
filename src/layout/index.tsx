@@ -5,8 +5,9 @@ import React from "react";
 import { Flex, Layout } from "antd";
 import styles from "./index.module.less";
 import { Outlet } from "react-router-dom";
+import Header from "./header";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Footer, Sider, Content } = Layout;
 
 export default function LayoutProps() {
   return (
@@ -14,7 +15,7 @@ export default function LayoutProps() {
       <Layout>
         <Sider width="25%">Sider</Sider>
         <Layout>
-          <Header>Header</Header>
+          <Header />
           <div className={styles.content}>
             <div className={styles.wrapper}>
               <Outlet />
