@@ -26,11 +26,11 @@
 - 描述用中文，简洁概括本次变更的目的
 - 如果涉及多个变更，用最主要的变更作为提交信息
 
-## 步骤 3：确认并提交
+## 步骤 3：直接提交
 
-1. 向用户展示将要提交的文件列表和生成的 commit 信息，询问用户确认
-2. 用户确认后，将相关文件添加到暂存区（注意排除 .env、credentials 等敏感文件）
-3. 执行 `git commit`，commit 信息末尾附加：`Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>`
+1. 将相关文件添加到暂存区（注意排除credentials 等敏感文件）
+2. 执行 `git commit`，commit 信息末尾附加：`Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>`
+3. 无需询问用户确认，直接执行提交和推送
 
 ## 步骤 4：推送到远程仓库
 
