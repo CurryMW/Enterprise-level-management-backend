@@ -3,7 +3,7 @@
  */
 import { Button, Form, Input } from "antd";
 
-import "./index.less";
+import styles from "./index.module.less";
 import { ILoginParams } from "../../types";
 import api from "../../api";
 import storage from "../../store";
@@ -18,9 +18,9 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
-      <div className="login_wrapper">
-        <div className="login_title">系统登录</div>
+    <div className={styles.login}>
+      <div className={styles.loginWrapper}>
+        <div className={styles.loginTitle}>系统登录</div>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
