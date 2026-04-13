@@ -1,7 +1,7 @@
 /* 配置路由文件，路由配置表 */
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Welcome from "../views/welcome";
+import Login from "../views/login";
 
 const router = createBrowserRouter([
   {
@@ -9,8 +9,8 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/welcome",
-    element: <Welcome />,
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
