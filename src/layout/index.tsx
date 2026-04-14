@@ -11,7 +11,7 @@ const { Footer, Sider, Content } = Layout;
 
 export default function LayoutProps() {
   return (
-    <div className="layout">
+    <div className="layout" style={{ minHeight: "100vh" }}>
       <Layout>
         <Sider width="25%">Sider</Sider>
         <Layout>

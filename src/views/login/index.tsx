@@ -4,7 +4,7 @@
 import { Button, Form, Input } from "antd";
 
 import styles from "./index.module.less";
-import { ILoginParams } from "../../types";
+import type { ILoginParams } from "../../types";
 import api from "../../api";
 import storage from "../../store";
 
