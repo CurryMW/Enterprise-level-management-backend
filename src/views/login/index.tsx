@@ -6,7 +6,7 @@ import { Button, Form, Input } from "antd";
 import styles from "./index.module.less";
 import type { ILoginParams } from "../../types";
 import api from "../../api";
-import storage from "../../store";
+import storage from "../../utils/storage";
 
 const Login = () => {
   const onFinish = async (values: ILoginParams) => {
