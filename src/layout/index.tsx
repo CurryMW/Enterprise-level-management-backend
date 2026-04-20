@@ -7,6 +7,7 @@ import styles from "./index.module.less";
 import { Outlet } from "react-router-dom";
 import Header from "./header";
 import Footer from "./footer";
+import MenuSibe from "./menu";
 import { useStore } from "../store";
 
 const { Sider, Content } = Layout;
@@ -16,8 +17,8 @@ export default function LayoutProps() {
   return (
     <div className="layout" style={{ minHeight: "100vh" }}>
       <Layout>
-        <Sider width="25%" trigger={null} collapsible collapsed={collapsed}>
-          Sider
+        <Sider width="20%" trigger={null} collapsible collapsed={collapsed}>
+          <MenuSibe />
         </Sider>
         <Layout>
           <Header />
