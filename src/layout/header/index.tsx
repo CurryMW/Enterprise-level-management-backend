@@ -18,7 +18,7 @@ const items: MenuProps["items"] = [
   },
 ];
 export default function Header() {
-  const { collapsed, setCurrentMenu } = useStore();
+  const { collapsed, setCollapsed } = useStore();
   const onClick = ({ key }: any) => {
     if (key === "1") {
       storage.remove("token");
@@ -31,7 +31,7 @@ export default function Header() {
         <Button
           type="text"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          onClick={() => setCurrentMenu()}
+          onClick={() => setCollapsed()}
           style={{
             fontSize: "16px",
             width: 64,

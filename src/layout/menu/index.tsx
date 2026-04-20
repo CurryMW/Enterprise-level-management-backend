@@ -11,6 +11,7 @@ import { Menu } from "antd";
 import logo from "../../../public/imgs/logo.png";
 import { useStore } from "../../store";
 import styles from "./index.module.less";
+import { useNavigate } from "react-router-dom";
 type MenuItem = Required<MenuProps>["items"][number];
 
 const items: MenuItem[] = [
@@ -20,16 +21,21 @@ const items: MenuItem[] = [
     label: "用户模块",
     icon: <MailOutlined />,
     children: [
-      { key: "/userList", label: "用户列表", icon: <UserOutlined /> },
-      { key: "/menuList", label: "菜单管理", icon: <MailOutlined /> },
-      { key: "/roleList", label: "角色管理", icon: <SolutionOutlined /> },
-      { key: "/deptList", label: "部门管理", icon: <LaptopOutlined /> },
+      { key: "/user", label: "用户列表", icon: <UserOutlined /> },
+      { key: "/menu", label: "菜单管理", icon: <MailOutlined /> },
+      { key: "/role", label: "角色管理", icon: <SolutionOutlined /> },
+      { key: "/dept", label: "部门管理", icon: <LaptopOutlined /> },
     ],
   },
 ];
 
 const MenuSibe = () => {
-  const { collapsed } = useStore();
+  const navigate = useNavigate();
+  const { collapsed, currentMenu, setCurrentMenu } = useStore();
+  const menuClick = ({ key }: { key: string }) => {
+    navigate(key);
+    setCurrentMenu(key);
+  };
   return (
     <div className={styles.navSibe}>
       <div className={styles.logo}>
@@ -37,10 +43,11 @@ const MenuSibe = () => {
         {!collapsed && <span className={styles.title}>后台管理系统</span>}
       </div>
       <Menu
-        defaultSelectedKeys={["dashboard"]}
-        defaultOpenKeys={["sub1"]}
+        defaultSelectedKeys={[currentMenu]}
+        defaultOpenKeys={["/user"]}
         mode="inline"
         theme="dark"
+        onClick={menuClick}
         inlineCollapsed={collapsed}
         items={items}
       />

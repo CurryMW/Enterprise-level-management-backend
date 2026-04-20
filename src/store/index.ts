@@ -2,8 +2,12 @@ import { create } from 'zustand'
 
 export const useStore = create<{
   collapsed: boolean,
-  setCurrentMenu: () => void
+  currentMenu: string,
+  setCollapsed: () => void,
+  setCurrentMenu: (menu: string) => void
 }>((set) => ({
   collapsed: false,
-  setCurrentMenu: () => set((state) => ({ collapsed: !state.collapsed })),
+  currentMenu: '/dashboard',
+  setCollapsed: () => set((state) => ({ collapsed: !state.collapsed })),
+  setCurrentMenu: (menu: string) => set(() => ({ currentMenu: menu })),
 }))
