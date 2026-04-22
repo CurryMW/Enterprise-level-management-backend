@@ -1,95 +1,85 @@
+import { useState } from "react";
 import { Space, Switch, Table, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import dayjs from "dayjs";
 import type { DataType } from "../../types";
+import api from "../../api";
+import { useEffect } from "react";
 export default function Dept() {
+  const [dataList, setDataList] = useState<DataType[]>([]);
+  // 获取部门列表
+  useEffect(() => {
+    getDeptData();
+  }, []);
+  const getDeptData = async () => {
+    const res: any = await api.getDeptList();
+    if ((res.code = 200)) {
+      setDataList(res.data);
+    }
+  };
+
   const columns: ColumnsType<DataType> = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "部门名称",
+      dataIndex: "deptName",
+      key: "deptName",
+      width: 200,
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-      width: "12%",
+      title: "负责人",
+      dataIndex: "userName",
+      key: "userName",
+      width: 150,
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      width: "30%",
-      key: "address",
-    },
-  ];
-
-  const data: DataType[] = [
-    {
-      key: 1,
-      name: "John Brown sr.",
-      age: 60,
-      address: "New York No. 1 Lake Park",
-      children: [
-        {
-          key: 11,
-          name: "John Brown",
-          age: 42,
-          address: "New York No. 2 Lake Park",
-        },
-        {
-          key: 12,
-          name: "John Brown jr.",
-          age: 30,
-          address: "New York No. 3 Lake Park",
-          children: [
-            {
-              key: 121,
-              name: "Jimmy Brown",
-              age: 16,
-              address: "New York No. 3 Lake Park",
-            },
-          ],
-        },
-        {
-          key: 13,
-          name: "Jim Green sr.",
-          age: 72,
-          address: "London No. 1 Lake Park",
-          children: [
-            {
-              key: 131,
-              name: "Jim Green",
-              age: 42,
-              address: "London No. 2 Lake Park",
-              children: [
-                {
-                  key: 1311,
-                  name: "Jim Green jr.",
-                  age: 25,
-                  address: "London No. 3 Lake Park",
-                },
-                {
-                  key: 1312,
-                  name: "Jimmy Green sr.",
-                  age: 18,
-                  address: "London No. 4 Lake Park",
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      title: "创建时间",
+      dataIndex: "createTime",
+      key: "createTime",
+      width: 200,
+      render: (_, record) => {
+        return record.createTime ? dayjs(record.createTime).format("YYYY年MM月DD日 HH:mm:ss") : "-";
+      },
     },
     {
-      key: 2,
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
+      title: "更新时间",
+      dataIndex: "updateTime",
+      key: "updateTime",
+      width: 200,
+      render: (_, record) => {
+        return record.createTime ? dayjs(record.createTime).format("YYYY年MM月DD日 HH:mm:ss") : "-";
+      },
+    },
+    {
+      title: "操作",
+      dataIndex: "action",
+      key: "action",
+      fixed: "right",
+      width: 200,
+      render: (_, record) => {
+        return (
+          <Space size="middle">
+            <Button type="primary" onClick={() => handlerClick("add", record)}>
+              新增
+            </Button>
+            <Button type="primary" onClick={() => handlerClick("edit", record)}>
+              编辑
+            </Button>
+            <Button danger onClick={() => handlerDelete(record)}>
+              删除
+            </Button>
+          </Space>
+        );
+      },
     },
   ];
 
   // 新增部门
-  const handleCreate = () => {
+  const handlerClick = (type: string, record?: DataType) => {
     console.log("新增部门");
+  };
+  // 删除部门
+  const handlerDelete = (record: DataType) => {
+    console.log("删除部门");
   };
 
   return (
@@ -98,10 +88,10 @@ export default function Dept() {
         <div className="header">
           <div className="title">部门列表</div>
           <div className="action">
-            <Button onClick={handleCreate}>新增</Button>
+            <Button onClick={() => handlerClick("add")}>新增</Button>
           </div>
         </div>
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={dataList} scroll={{ x: 1200 }} />
       </div>
     </div>
   );
