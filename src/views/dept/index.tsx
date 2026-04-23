@@ -1,20 +1,27 @@
-import { useState } from "react";
-import { Space, Switch, Table, Button } from "antd";
+import { useState, useEffect, useRef } from "react";
+import { Space, Table, Button, Form, Input, Modal, message } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
-import type { DataType } from "../../types";
+import type { DataType, DeptCreateRef, IResult } from "../../types";
 import api from "../../api";
-import { useEffect } from "react";
+import DeptCreate from "./deptCreate";
 export default function Dept() {
+  const [form] = Form.useForm();
+  const deptRef = useRef<DeptCreateRef | null>(null);
   const [dataList, setDataList] = useState<DataType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   // 获取部门列表
   useEffect(() => {
     getDeptData();
   }, []);
   const getDeptData = async () => {
-    const res: any = await api.getDeptList();
+    setLoading(true);
+    const res: IResult = await api.getDeptList(form.getFieldsValue());
     if ((res.code = 200)) {
       setDataList(res.data);
+      setLoading(false);
+    } else {
+      setLoading(false);
     }
   };
 
@@ -58,7 +65,7 @@ export default function Dept() {
       render: (_, record) => {
         return (
           <Space size="middle">
-            <Button type="primary" onClick={() => handlerClick("add", record)}>
+            <Button type="primary" onClick={() => handlerClick("add", { parentId: record._id })}>
               新增
             </Button>
             <Button type="primary" onClick={() => handlerClick("edit", record)}>
@@ -74,25 +81,68 @@ export default function Dept() {
   ];
 
   // 新增部门
-  const handlerClick = (type: string, record?: DataType) => {
+  const handlerClick = (type: string, record?: DataType | { parentId: string }) => {
     console.log("新增部门");
+    deptRef.current?.showModal(type, record);
   };
   // 删除部门
   const handlerDelete = (record: DataType) => {
-    console.log("删除部门");
+    Modal.confirm({
+      title: "删除部门",
+      content: `是否确认删除${record.deptName}`,
+      okText: "确认",
+      cancelText: "取消",
+      onOk: async () => {
+        const res: IResult = await api.deleteDept({ _id: record._id });
+        if (res.code === 200) {
+          message.success("删除成功");
+          getDeptData();
+        }
+      },
+    });
+  };
+
+  const handlerReset = () => {
+    form.resetFields();
+    getDeptData();
   };
 
   return (
     <div>
       <div className="wrap-table">
+        <Form
+          form={form}
+          className="search-form"
+          layout="inline"
+          initialValues={{ remember: true }}
+          autoComplete="off"
+        >
+          <Form.Item label="部门名称" name="deptName">
+            <Input placeholder="请输入" />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" className="mr10" onClick={getDeptData}>
+              查询
+            </Button>
+            <Button onClick={handlerReset}>重置</Button>
+          </Form.Item>
+        </Form>
         <div className="header">
           <div className="title">部门列表</div>
           <div className="action">
             <Button onClick={() => handlerClick("add")}>新增</Button>
           </div>
         </div>
-        <Table columns={columns} dataSource={dataList} scroll={{ x: 1200 }} />
+        <Table
+          rowKey="_id"
+          columns={columns}
+          dataSource={dataList}
+          loading={loading}
+          scroll={{ x: 1200 }}
+          pagination={false}
+        />
       </div>
+      <DeptCreate ref={deptRef} update={getDeptData} />
     </div>
   );
 }
