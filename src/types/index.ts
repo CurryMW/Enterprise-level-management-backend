@@ -1,5 +1,6 @@
 import { extend } from "dayjs";
 
+
 // 接口返回类型定义
 export interface IResult {
   code?: number;
@@ -88,4 +89,46 @@ export interface IPageParams {
 }
 export interface MenuCreateRef {
   showModal: (type: string, data?: IMenu | { parentId: string }) => void;
+}
+
+/* 角色模块 */
+export interface IRole {
+  _id: string;
+  roleName: string;
+  remark: string;
+  permissionList: {
+    checkedKeys: string[];
+    halfCheckedKeys: string[];
+  }
+  createTime: string;
+  updateTime: string;
+}
+export interface IRoleSearchParams extends IPageParams {
+  roleName?: string;
+}
+export interface IRoleCreateParams {
+  roleName: string;
+  remark?: string;
+}
+export interface IRoleEditParams extends IPageParams {
+  _id: string;
+}
+export interface IRolePermissionParams {
+  _id: string;
+  permissionList: {
+    checkedKeys: string[];
+    halfCheckedKeys: string[];
+  }
+}
+export interface ResultData<T> {
+  code?: number;
+  data: {
+    list: T[];
+    page: {
+      total: number | 0;
+      pageNum: number;
+      pageSzie: number;
+    };
+  };
+  msg?: string;
 }

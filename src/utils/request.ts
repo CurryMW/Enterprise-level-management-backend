@@ -44,8 +44,10 @@ request.interceptors.response.use(
 
 // 导出封装后的axios实例
 export default {
-  get: (url: string, params?: Object) => request.get(url, { params }),
-  post: (url: string, data?: Object) => request.post(url, data),
-  put: (url: string, data?: Object) => request.put(url, data),
+  get<T>(url: string, params?: Object): Promise<T> {
+    return request.get(url, { params });
+  },
+  post<T>(url: string, data?: Object): Promise<T> { return request.post(url, data) },
+  put<T>(url: string, data?: Object): Promise<T> { return request.put(url, data) },
   delete: (url: string) => request.delete(url)
 };
