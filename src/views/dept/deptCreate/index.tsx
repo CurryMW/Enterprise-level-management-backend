@@ -75,7 +75,9 @@ export default function DeptCreate(props: IProps) {
         cancelText="取消"
       >
         <Form form={form} labelCol={{ span: 4 }} labelAlign="right">
-          <Form.Item hidden name="_id"></Form.Item>
+          <Form.Item hidden name="_id">
+            <Input />
+          </Form.Item>
           <Form.Item label="上级部门" name="parentId">
             <TreeSelect
               showSearch
