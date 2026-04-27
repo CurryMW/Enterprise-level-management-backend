@@ -132,3 +132,13 @@ export interface ResultData<T> {
   };
   msg?: string;
 }
+export interface RoleCreateRef {
+  showModal: (type: string, data?: IRole | { parentId: string }) => void;
+}
+export interface IPermission {
+  _id: string;
+  permissionList: {
+    checkedKeys: string[];
+    halfCheckedKeys: string[];
+  };
+}

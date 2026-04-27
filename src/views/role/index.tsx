@@ -1,13 +1,17 @@
-import { Form, Input, Button, Table, Space } from "antd";
+import { useRef } from "react";
+import { Form, Input, Button, Table, Space, Modal, message } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
 import { useAntdTable } from "ahooks";
-import type { IRole, IRoleSearchParams, IResult } from "../../types";
+import type { IRole, IResult, IRoleSearchParams, RoleCreateRef } from "../../types";
 import api from "../../api/roleApi";
+import RoleCreate from "./roleCreate";
+import SetPermission from "./setPermission";
 import styles from "./index.module.less";
-import { useState } from "react";
 export default function Role() {
   const [form] = Form.useForm();
+  const roleRef = useRef<RoleCreateRef>(null);
+  const permissionRef = useRef<RoleCreateRef>(null);
   const columns: ColumnsType<IRole> = [
     { title: "角色名称", dataIndex: "roleName", key: "roleName" },
     { title: "备注", dataIndex: "remark", key: "remark" },
@@ -40,7 +44,7 @@ export default function Role() {
             <Button
               type="primary"
               onClick={() => {
-                handlerClick();
+                handlerClick("edit", record);
               }}
             >
               编辑
@@ -56,7 +60,7 @@ export default function Role() {
             <Button
               danger
               onClick={() => {
-                handleDel(record._id);
+                handleDel(record);
               }}
             >
               删除
@@ -89,13 +93,25 @@ export default function Role() {
   });
 
   const handleSetPermission = (record: IRole) => {
-    console.log("设置权限");
+    permissionRef.current?.showModal("setPermission", record);
   };
-  const handlerClick = () => {
-    console.log("新增");
+  const handlerClick = (type: string, data?: IRole | { parentId: string }) => {
+    roleRef.current?.showModal(type, data);
   };
-  const handleDel = (id: string) => {
-    console.log("删除");
+  const handleDel = (record: IRole) => {
+    Modal.confirm({
+      title: "删除部门",
+      content: `是否确认删除${record.roleName}`,
+      okText: "确认",
+      cancelText: "取消",
+      onOk: async () => {
+        const res: IResult = await api.deleteRole({ _id: record._id });
+        if (res.code === 200) {
+          message.success("删除成功");
+          search.submit();
+        }
+      },
+    });
   };
 
   return (
@@ -120,10 +136,12 @@ export default function Role() {
       <div className="header">
         <div className="title">菜单列表</div>
         <div className="action">
-          <Button onClick={() => handlerClick()}>新增</Button>
+          <Button onClick={() => handlerClick("add")}>新增</Button>
         </div>
       </div>
       <Table rowKey="_id" columns={columns} scroll={{ x: 1500 }} {...tableProps} />
+      <RoleCreate ref={roleRef} update={search.submit} />
+      <SetPermission ref={permissionRef} update={search.submit} />
     </div>
   );
 }

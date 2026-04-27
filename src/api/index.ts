@@ -2,7 +2,7 @@
  * @description： 接口请求模块
  */
 import request from "../utils/request";
-import type { ILoginParams, DeptPamas, ISearchParams, ICreateMenumParams, IUpdateMenuParams } from "../types";
+import type { ILoginParams, DeptPamas, ISearchParams, ICreateMenumParams, IUpdateMenuParams, IResult } from "../types";
 export default {
   login(params: ILoginParams) {
     return request.post("/users/login", params)
@@ -25,8 +25,8 @@ export default {
   },
   /* 菜单模块 */
   // 菜单列表
-  getMenuList(params: ISearchParams) {
-    return request.get("/menu/list", params)
+  getMenuList(params?: ISearchParams) {
+    return request.get<IResult>("/menu/list", params)
   },
   // 菜单新增
   addMenu(params: ICreateMenumParams) {

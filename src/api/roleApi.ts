@@ -2,7 +2,7 @@
  * @description： 角色模块接口请求模块
  */
 import request from "../utils/request";
-import type { IRoleSearchParams, IRoleCreateParams, IRoleEditParams, IRolePermissionParams, ResultData, IRole } from "../types";
+import type { IRoleSearchParams, IRoleCreateParams, IRoleEditParams, IRolePermissionParams, ResultData, IRole, IResult } from "../types";
 export default {
   // 角色列表
   getRoleList(params: IRoleSearchParams) {
@@ -18,10 +18,10 @@ export default {
   },
   // 设置权限
   setRolePermission(params: IRolePermissionParams) {
-    return request.post("/roles/update/permission", params)
+    return request.post<IResult>("/roles/update/permission", params)
   },
   // 删除角色
-  deleteRole(params: { id: string }) {
-    return request.post("/roles/delete", params)
+  deleteRole(params: { _id: string }) {
+    return request.post<IResult>("/roles/delete", params)
   }
 }
