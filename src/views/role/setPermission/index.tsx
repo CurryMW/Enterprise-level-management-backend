@@ -99,7 +99,7 @@ export default function SetPermission(props: IProps) {
           labelAlign="right"
           initialValues={{ menuType: 1, menuState: 1 }}
         >
-          <Form.Item label="角色名称"></Form.Item>
+          <Form.Item label="角色名称">{roleInfo?.roleName}</Form.Item>
           <Form.Item label="权限">
             <Tree
               checkable
