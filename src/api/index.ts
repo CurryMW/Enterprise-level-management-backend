@@ -2,7 +2,7 @@
  * @description： 接口请求模块
  */
 import request from "../utils/request";
-import type { ILoginParams, DeptPamas, ISearchParams, ICreateMenumParams, IUpdateMenuParams, IResult } from "../types";
+import type { ILoginParams, DeptPamas, ISearchParams, ICreateMenumParams, IUpdateMenuParams, IResult, UserListSeach, ResultData, UserType } from "../types";
 export default {
   login(params: ILoginParams) {
     return request.post("/users/login", params)
@@ -43,5 +43,18 @@ export default {
   // 用户所有信息数据
   getUserList() {
     return request.get("/users/all/list")
+  },
+  /**
+   * 获取用户列表（支持搜索条件）
+   * @param params - 可选的搜索参数
+   * @returns 用户列表数据
+   */
+  // 用户列表
+  getUserListSeach(params?: UserListSeach) {
+    return request.get<ResultData<UserType>>("/users/list", params)
+  },
+  // 所有角色数据
+  getRoleAllList() {
+    return request.get('/roles/allList')
   }
 }

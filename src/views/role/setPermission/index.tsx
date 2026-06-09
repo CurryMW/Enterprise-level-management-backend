@@ -30,6 +30,11 @@ export default function SetPermission(props: IProps) {
       setMenuList(res.data);
     }
   };
+  /**
+   * 打开角色编辑/权限设置模态框
+   * @param type 模态框类型
+   * @param data 角色数据（可选），编辑时传入
+   */
   const showModal = (type: string, data?: IRole) => {
     setRoleInfo(data);
     setIsModalOpen(true);
@@ -40,6 +45,7 @@ export default function SetPermission(props: IProps) {
   };
 
   const handleOk = async () => {
+    console.log("permission", permission);
     if (!permission) return message.error("请选择权限");
     const res = await roleApi.setRolePermission(permission);
     if (res.code === 200) {
@@ -69,9 +75,10 @@ export default function SetPermission(props: IProps) {
       if (item.menuType === 2) {
         checkedKeysTemp.push(item._id);
       } else {
-        halfCheckedKeysTemp.push(item._id);
+        halfCheckedKeysTemp.push(item.parentId);
       }
     });
+    console.log("checkedKeysTemp", checkedKeysTemp, halfCheckedKeysTemp);
 
     setPermission({
       _id: roleInfo?._id || "",

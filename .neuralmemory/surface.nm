@@ -1,0 +1,100 @@
+# ═══════════════════════════════════════════════════
+# .neuralmemory/surface.nm
+# Neural Memory Knowledge Surface v1
+# Auto-generated from brain.db | Editable by human
+# ═══════════════════════════════════════════════════
+---
+brain: default
+updated: 2026-06-09T09:43:41
+neurons: 257
+synapses: 10637
+token_budget: 1200
+depth_available: [surface, detail, deep]
+---
+
+# ── GRAPH ──────────────────────────────────────────
+# Nodes = key concepts. Edges = causal/decisional links.
+# Agent: scan this section to understand the knowledge landscape.
+# Format: [id] content (type) {p:N} →edge→ [target_id_or_text]
+
+[c12] 274 memories about concept: totaltime, status, num, null, yearmonth. Key:… (concept) {p:4}
+
+[c13] Maven (concept) {p:4}
+  →co_occurs→ "IDEA"
+  →co_occurs→ "Plugins"
+  →co_occurs→ "Session activity = 3. 选择 **"Run StudentMisApplication"**…"
+  →co_occurs→ "Lombok"
+
+[c1] Preference: code or implement features (concept) {p:5}
+  →involves→ "Preference"
+  →related_to→ "preference code"
+  →co_occurs→ "| `specs/<capability>/spec"
+  →related_to→ "code implement"
+
+[c2] Session activity: <command-message>login</command-message>… (concept) {p:5}
+  →related_to→ "message command"
+  →related_to→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
+  →related_to→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
+  →related_to→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
+  →related_to→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
+
+[c3] TODO: prompt for available changes (concept) {p:5}
+  →related_to→ "todo prompt"
+  →related_to→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
+  →co_occurs→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
+  →related_to→ "prompt available"
+  →related_to→ "Session activity: 3. 选择 **"Run StudentMisApplication"**…"
+
+[c4] Session activity: 这个是信用时数的列表接口，然后/me/getYearMonthServiceTimeDetai是列表中的展示明细数据列表并… (concept) {p:5}
+  →is_a→ "20 memories about concept: totaltime, status, num, null,…"
+  →is_a→ "20 memories about concept: totaltime, status, num, null,…"
+  →is_a→ "123 memories about concept: totaltime, status, num, null,…"
+  →is_a→ "123 memories about concept: totaltime, status, num, null,…"
+  →is_a→ "85 memories about concept: totaltime, status, num, null,…"
+
+[c5] Session activity: 其中累计信用时长取/me/getUserInfo接口中返回的字段activitieDuration，而累计荣誉时长取/me… (concept) {p:5}
+  →related_to→ "TODO: NEVER write code"
+  →co_occurs→ "TODO: NEVER write code"
+  →related_to→ "explore mode is for thinking, not implementing"
+  →co_occurs→ "explore mode is for thinking, not implementing"
+
+[c6] x.xxx (concept) {p:5}
+  →co_occurs→ "IDEA"
+  →co_occurs→ "Maven"
+  →co_occurs→ "Plugins"
+  →co_occurs→ "Session activity = 3. 选择 **"Run StudentMisApplication"**…"
+  →co_occurs→ "server.port"
+
+[c7] explore mode is for thinking, not implementing (concept) {p:5}
+  →co_occurs→ "TODO: NEVER write code"
+  →alias→ "explore mode is for thinking, not implementing"
+  →alias→ "explore mode is for thinking, not implementing"
+  →alias→ "explore mode is for thinking, not implementing"
+  →alias→ "explore mode is for thinking, not implementing"
+
+# ── CLUSTERS ───────────────────────────────────────
+# Auto-detected topic groups from brain.db entity co-occurrence.
+# Agent: use clusters to scope recall queries.
+
+@preference: [19331fd4-c06b-49c8-8caf-49e89464877e, 64066ba3-9798-4fe2-9494-5ff8277ecfe4, 7257caa6-d536-473c-898b-e715818985cc] "Preference, preference code, Preference: code or implement features"
+@idea: [0815af10-8ad9-4909-8aa0-dd7dfa92b7ad, 097f1a99-d634-4446-b387-7961ed6da786, 2188794b-e20c-4c05-8bf1-4925a73553c8, 311b32ec-48f7-4fd1-9582-9279b27c465b, 3fc7b81b-9578-4925-b631-dd1f0c39f5ec] "IDEA, Plugins, x.xxx"
+@explore: [33532c1b-c7d2-472a-8b37-b218a69711f9, 35a3111a-07d3-4093-91b5-1da848409df5] "explore mode is for thinking, not implem"
+
+# ── DEPTH MAP ──────────────────────────────────────
+# When surface isn't enough, this tells agent WHERE to dig.
+# Format: [id] → depth_hint (context)
+
+[c1] → NEEDS_DETAIL (12 total synapses, recall "Preference: code or implement features")
+[c2] → NEEDS_DETAIL (11 total synapses, recall "Session activity: <command-message>logi…")
+[c3] → NEEDS_DETAIL (11 total synapses, recall "TODO: prompt for available changes")
+[c4] → NEEDS_DEEP (276 synapses in brain.db, recall "Session activity: 这个是信用时数的列表接口，然后/me/ge…")
+[c5] → NEEDS_DETAIL (10 total synapses, recall "Session activity: 其中累计信用时长取/me/getUserI…")
+[c7] → NEEDS_DEEP (52 synapses in brain.db, recall "explore mode is for thinking, not…")
+
+# ── META ───────────────────────────────────────────
+# Stats for agent to gauge brain richness
+
+coverage: 0.12
+staleness: 0.33
+last_consolidation: 2026-06-09T09:43:41
+top_entities: [Session, TODO:, Session, x.xxx, explore]

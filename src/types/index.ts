@@ -1,6 +1,3 @@
-import { extend } from "dayjs";
-
-
 // 接口返回类型定义
 export interface IResult {
   code?: number;
@@ -38,22 +35,6 @@ export interface DeptPamas {
   children: DeptPamas[];
 }
 
-// 用户模块
-export interface UserType {
-  _id: string;
-  userId: number;
-  userName: string;
-  userEmail: string;
-  deptId: string;
-  state: number;
-  mobile: string;
-  job: string;
-  role: number;
-  roleList: string;
-  createId: number;
-  deptName: string;
-  userImg: string;
-}
 
 /* 菜单模块 */
 // 创建菜单参数
@@ -141,4 +122,26 @@ export interface IPermission {
     checkedKeys: string[];
     halfCheckedKeys: string[];
   };
+}
+
+// 用户列表
+export interface UserListSeach extends IPageParams {
+  state?: string;
+}
+
+// 用户模块
+export interface UserType {
+  _id: string;
+  userId: number;
+  userName: string;
+  userEmail: string;
+  deptId: string;
+  state: number;
+  mobile: string;
+  job: string;
+  role: number;
+  roleList: string;
+  createId: number;
+  deptName: string;
+  userImg: string;
 }
