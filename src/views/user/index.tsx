@@ -34,10 +34,7 @@ export default function User() {
       dataIndex: "roleList",
       key: "roleList",
       render: (_, record) => {
-        return {
-          1: "管理员",
-          2: "普通用户",
-        }[record.role];
+        return roleOptions.find(item => item.value === record.roleList)?.label || "-";
       },
     },
     {
