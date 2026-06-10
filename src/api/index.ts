@@ -9,7 +9,7 @@ export default {
   },
   // 部门模块列表
   getDeptList(params?: DeptPamas) {
-    return request.get("/dept/list", params)
+    return request.get<IResult>("/dept/list", params)
   },
   // 新增部门
   addDept(params: DeptPamas) {
@@ -56,5 +56,21 @@ export default {
   // 所有角色数据
   getRoleAllList() {
     return request.get('/roles/allList')
-  }
+  },
+
+  // 新增用户
+  addUser(params: UserType) {
+    return request.post<IResult>("/users/create", params)
+  },
+  // 编辑用户
+  editUser(params: UserType) {
+    return request.post<IResult>("/users/edit", params)
+  },
+  // 删除用户
+  deleteUser(params: {
+    userIds: string | string[] | React.Key[]
+  }) {
+    return request.post<IResult>("/users/delete", params)
+  },
+
 }

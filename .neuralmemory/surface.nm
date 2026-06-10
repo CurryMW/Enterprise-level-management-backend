@@ -5,9 +5,9 @@
 # ═══════════════════════════════════════════════════
 ---
 brain: default
-updated: 2026-06-09T09:43:41
+updated: 2026-06-10T06:49:52
 neurons: 257
-synapses: 10637
+synapses: 10643
 token_budget: 1200
 depth_available: [surface, detail, deep]
 ---
@@ -17,13 +17,21 @@ depth_available: [surface, detail, deep]
 # Agent: scan this section to understand the knowledge landscape.
 # Format: [id] content (type) {p:N} →edge→ [target_id_or_text]
 
-[c12] 274 memories about concept: totaltime, status, num, null, yearmonth. Key:… (concept) {p:4}
+[c10] server.port (concept) {p:4}
+  →co_occurs→ "IDEA"
+  →co_occurs→ "Maven"
+  →co_occurs→ "Plugins"
+  →co_occurs→ "Session activity = 3. 选择 **"Run StudentMisApplication"**…"
+  →co_occurs→ "Lombok"
 
-[c13] Maven (concept) {p:4}
+[c11] TODO: NEVER write code (concept) {p:4}
+
+[c12] Maven (concept) {p:4}
   →co_occurs→ "IDEA"
   →co_occurs→ "Plugins"
   →co_occurs→ "Session activity = 3. 选择 **"Run StudentMisApplication"**…"
   →co_occurs→ "Lombok"
+  →co_occurs→ "将 `server.port = 8443` 改成其他端口如 `8080`"
 
 [c1] Preference: code or implement features (concept) {p:5}
   →involves→ "Preference"
@@ -32,18 +40,15 @@ depth_available: [surface, detail, deep]
   →related_to→ "code implement"
 
 [c2] Session activity: <command-message>login</command-message>… (concept) {p:5}
+  →related_to→ "activity command"
   →related_to→ "message command"
-  →related_to→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
-  →related_to→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
-  →related_to→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
-  →related_to→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
+  →involves→ "Login"
+  →involves→ "Status"
 
 [c3] TODO: prompt for available changes (concept) {p:5}
   →related_to→ "todo prompt"
-  →related_to→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
-  →co_occurs→ "Session activity: 这个接口/me/getYearTotalServiceTime是信用时数页面中切换…"
-  →related_to→ "prompt available"
-  →related_to→ "Session activity: 3. 选择 **"Run StudentMisApplication"**…"
+  →related_to→ "Session activity: [Request interrupted by user for tool…"
+  →co_occurs→ "Session activity: [Request interrupted by user for tool…"
 
 [c4] Session activity: 这个是信用时数的列表接口，然后/me/getYearMonthServiceTimeDetai是列表中的展示明细数据列表并… (concept) {p:5}
   →is_a→ "20 memories about concept: totaltime, status, num, null,…"
@@ -76,8 +81,8 @@ depth_available: [surface, detail, deep]
 # Auto-detected topic groups from brain.db entity co-occurrence.
 # Agent: use clusters to scope recall queries.
 
-@preference: [19331fd4-c06b-49c8-8caf-49e89464877e, 64066ba3-9798-4fe2-9494-5ff8277ecfe4, 7257caa6-d536-473c-898b-e715818985cc] "Preference, preference code, Preference: code or implement features"
-@idea: [0815af10-8ad9-4909-8aa0-dd7dfa92b7ad, 097f1a99-d634-4446-b387-7961ed6da786, 2188794b-e20c-4c05-8bf1-4925a73553c8, 311b32ec-48f7-4fd1-9582-9279b27c465b, 3fc7b81b-9578-4925-b631-dd1f0c39f5ec] "IDEA, Plugins, x.xxx"
+@preference: [19331fd4-c06b-49c8-8caf-49e89464877e, 64066ba3-9798-4fe2-9494-5ff8277ecfe4, 7257caa6-d536-473c-898b-e715818985cc] "preference code, Preference: code or implement features, Preference"
+@plugins: [0815af10-8ad9-4909-8aa0-dd7dfa92b7ad, 097f1a99-d634-4446-b387-7961ed6da786, 2188794b-e20c-4c05-8bf1-4925a73553c8, 311b32ec-48f7-4fd1-9582-9279b27c465b, 3fc7b81b-9578-4925-b631-dd1f0c39f5ec] "Plugins, server.port, Maven"
 @explore: [33532c1b-c7d2-472a-8b37-b218a69711f9, 35a3111a-07d3-4093-91b5-1da848409df5] "explore mode is for thinking, not implem"
 
 # ── DEPTH MAP ──────────────────────────────────────
@@ -86,15 +91,16 @@ depth_available: [surface, detail, deep]
 
 [c1] → NEEDS_DETAIL (12 total synapses, recall "Preference: code or implement features")
 [c2] → NEEDS_DETAIL (11 total synapses, recall "Session activity: <command-message>logi…")
-[c3] → NEEDS_DETAIL (11 total synapses, recall "TODO: prompt for available changes")
+[c3] → NEEDS_DEEP (11 synapses in brain.db, recall "TODO: prompt for available changes")
 [c4] → NEEDS_DEEP (276 synapses in brain.db, recall "Session activity: 这个是信用时数的列表接口，然后/me/ge…")
 [c5] → NEEDS_DETAIL (10 total synapses, recall "Session activity: 其中累计信用时长取/me/getUserI…")
 [c7] → NEEDS_DEEP (52 synapses in brain.db, recall "explore mode is for thinking, not…")
+[c11] → NEEDS_DEEP (7 synapses in brain.db, recall "TODO: NEVER write code")
 
 # ── META ───────────────────────────────────────────
 # Stats for agent to gauge brain richness
 
 coverage: 0.12
-staleness: 0.33
-last_consolidation: 2026-06-09T09:43:41
-top_entities: [Session, TODO:, Session, x.xxx, explore]
+staleness: 0.35
+last_consolidation: 2026-06-10T06:49:52
+top_entities: [Session, x.xxx, explore, server.port, Maven]

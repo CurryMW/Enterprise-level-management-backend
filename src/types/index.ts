@@ -145,3 +145,7 @@ export interface UserType {
   deptName: string;
   userImg: string;
 }
+
+export interface UserCreateRef {
+  showModal: (type: string, record?: UserType) => void;
+}

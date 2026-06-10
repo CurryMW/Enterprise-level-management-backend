@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
-import { Button, Form, Input, Select, Table, Space } from "antd";
+import { useEffect, useState, useRef } from "react";
+import { Button, Form, Input, Select, Table, Space, message } from "antd";
 import { useAntdTable } from "ahooks";
 import type { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
-import type { UserType, UserListSeach } from "@/types";
+import type { UserType, UserListSeach, UserCreateRef } from "@/types";
 import api from "@/api";
+import AddUser from "./Add";
 import styles from "./index.module.less";
 
 export default function User() {
   const [form] = Form.useForm();
   const [roleOptions, setRoleOptions] = useState([]);
+  const userRef = useRef<UserCreateRef | null>(null);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   useEffect(() => {
     api.getRoleAllList().then((res: any) => {
@@ -78,7 +81,7 @@ export default function User() {
             <Button
               danger
               onClick={() => {
-                handleDel(record);
+                handleDel([record.userId]);
               }}
             >
               删除
@@ -106,12 +109,34 @@ export default function User() {
       });
   };
 
-  const handlerClick = (type: string, record?: UserType) => {};
+  const handlerClick = (type: string, record?: UserType) => {
+    if (!userRef.current) return;
+    switch (type) {
+      case "add":
+        userRef.current.showModal(type, record);
+        break;
+      case "edit":
+        userRef.current.showModal(type, record);
+        break;
+    }
+  };
   const { tableProps, search } = useAntdTable(getRoleList, {
     form, // 表单实例
     defaultPageSize: 10,
   });
-  const handleDel = (record: UserType) => {};
+  const handleDel = (key: string | string[] | React.Key[]) => {
+    if (!key.length) return message.warning("请选择要删除的项");
+    api.deleteUser({ userIds: key }).then(() => {
+      message.success("删除成功");
+      search.submit();
+      setSelectedRowKeys([]);
+    });
+  };
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
   return (
     <div className="wrap-table">
       <Form
@@ -158,12 +183,19 @@ export default function User() {
           <Button type="primary" onClick={() => handlerClick("add")}>
             新增
           </Button>
-          <Button type="primary" danger onClick={() => handlerClick("add")}>
+          <Button type="primary" danger onClick={() => handleDel(selectedRowKeys)}>
             批量删除
           </Button>
         </div>
       </div>
-      <Table rowKey="_id" columns={columns} scroll={{ x: 1500 }} {...tableProps} />
+      <Table
+        {...tableProps}
+        rowKey="userId"
+        columns={columns}
+        scroll={{ x: 1500 }}
+        rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
+      />
+      <AddUser ref={userRef} />
     </div>
   );
 }

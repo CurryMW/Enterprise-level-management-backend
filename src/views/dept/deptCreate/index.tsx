@@ -19,7 +19,7 @@ export default function DeptCreate(props: IProps) {
 
   // 获取部门数据
   const getDeptData = async () => {
-    const res: IResult = await api.getDeptList(form.getFieldsValue());
+    const res = await api.getDeptList(form.getFieldsValue());
     if ((res.code = 200)) {
       setTreeData(res.data);
     }
